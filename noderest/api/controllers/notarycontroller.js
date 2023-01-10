@@ -549,13 +549,13 @@ exports.transfer2_data = async (req, res, next) => {
 
   try {
     const ccpPath = path.resolve(
-      './../test-network/organizations/peerOrganizations/org1.example.com/connection-org1.json'
+      './../test-network/organizations/peerOrganizations/org2.example.com/connection-org2.json'
     );
     console.log('ccpPath', ccpPath);
     let ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
     // const walletPath = path.join(process.cwd(), "wallet");
     // const walletPath = "./../wallet";
-    const walletPath = path.join(__dirname, '..', '..', 'wallet');
+    const walletPath = path.join(__dirname, '..', '..', 'wallet','org2');
 
     const wallet = await Wallets.newFileSystemWallet(walletPath);
 
@@ -603,7 +603,7 @@ exports.transfer2_data = async (req, res, next) => {
     const asset_properties = {
       object_type: 'asset_properties',
       asset_id: req.body.asset_id,
-      salt: Buffer.from(randomNumber.toString()).toString('hex'),
+      salt: req.body.salt, //Buffer.from(randomNumber.toString()).toString('hex'),
       sno: req.body.sno,
       size: req.body.size,
       street: req.body.street,
@@ -616,12 +616,12 @@ exports.transfer2_data = async (req, res, next) => {
 
     console.log(`${asset_properties_string}`);
     transaction = contract.createTransaction('TransferAsset');
-    transaction.setEndorsingOrganizations(org1, org2);
+    //transaction.setEndorsingOrganizations(org1, org2);
     transaction.setTransient({
       asset_properties: Buffer.from(asset_properties_string),
     });
 
-    await transaction.submit(req.body.asset_id, org2);
+    await transaction.submit(req.body.asset_id,`org222`); //,org2
     console.log(
       `${RED}*** FAILED: committed, TransferAsset - Org2 now owns the asset ${req.body.asset_id}${RESET}`
     );
@@ -908,7 +908,7 @@ exports.get_id2_data = async (req, res, next) => {
       //  'org1.department1'
 //      );
   const ccpPath = path.resolve(
-      './../test-network/organizations/peerOrganizations/org1.example.com/connection-org1.json'
+      './../test-network/organizations/peerOrganizations/org2.example.com/connection-org2.json'
     );
     console.log('ccpPath', ccpPath);
     let ccp = JSON.parse(fs.readFileSync(ccpPath, 'utf8'));
