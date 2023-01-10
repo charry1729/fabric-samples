@@ -3,16 +3,16 @@
 */
 
 package main
+/*      "time"
+        "github.com/golang/protobuf/ptypes"
 
+*/
 import (
 	"bytes"
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
 	"log"
-	"time"
-
-	"github.com/golang/protobuf/ptypes"
 	"github.com/hyperledger/fabric-chaincode-go/pkg/statebased"
 	"github.com/hyperledger/fabric-chaincode-go/shim"
 	"github.com/hyperledger/fabric-contract-api-go/contractapi"
@@ -145,6 +145,7 @@ func (s *SmartContract) TransferAsset(ctx contractapi.TransactionContextInterfac
 
 
 
+
 	asset, err := s.ReadAsset(ctx, assetID)
 	if err != nil {
 		return fmt.Errorf("failed to get asset: %v", err)
@@ -169,10 +170,8 @@ func verifyTransferConditions(ctx contractapi.TransactionContextInterface,
 	asset *Asset,
 	immutablePropertiesJSON []byte,
 	clientOrgID string,
-	buyerOrgID string
-	// ,	priceJSON []byte
-	) error {
-
+	buyerOrgID string ) error {
+        // ,    priceJSON []byte
 	// CHECK1: Auth check to ensure that client's org actually owns the asset
 
 	if clientOrgID != asset.OwnerOrg {

@@ -1,9 +1,13 @@
-module github.com/hyperledger/fabric-samples/chaincode/tradingMarbles
+module github.com/hyperledger/fabric-samples/asset-transfer-secured-notary/chaincode-go
 
 go 1.14
 
 require (
-	github.com/golang/protobuf v1.3.2
-	github.com/hyperledger/fabric-chaincode-go v0.0.0-20200128192331-2d899240a7ed
+	github.com/golang/protobuf v1.5.2
+	github.com/hyperledger/fabric-chaincode-go v0.0.0-20220920210243-7bc6fa0dd58b
 	github.com/hyperledger/fabric-contract-api-go v1.0.0
+	github.com/hyperledger/fabric-protos-go v0.0.0-20220613214546-bf864f01d75e
+	github.com/stretchr/testify v1.8.0
+	google.golang.org/protobuf v1.28.0
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

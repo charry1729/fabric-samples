@@ -64,15 +64,15 @@ func (s *SmartContract) GetAssetPrivateProperties(ctx contractapi.TransactionCon
 	return string(immutableProperties), nil
 }
 
-// // GetAssetSalesPrice returns the sales price
-// func (s *SmartContract) GetAssetSalesPrice(ctx contractapi.TransactionContextInterface, assetID string) (string, error) {
-// 	return getAssetPrice(ctx, assetID, typeAssetForSale)
-// }
+// GetAssetSalesPrice returns the sales price
+//func (s *SmartContract) GetAssetSalesPrice(ctx contractapi.TransactionContextInterface, assetID string) (string, error) {
+//	return getAssetPrice(ctx, assetID, typeAssetForSale)
+//}
 
-// // GetAssetBidPrice returns the bid price
-// func (s *SmartContract) GetAssetBidPrice(ctx contractapi.TransactionContextInterface, assetID string) (string, error) {
-// 	return getAssetPrice(ctx, assetID, typeAssetBid)
-// }
+// GetAssetBidPrice returns the bid price
+//func (s *SmartContract) GetAssetBidPrice(ctx contractapi.TransactionContextInterface, assetID string) (string, error) {
+//	return getAssetPrice(ctx, assetID, typeAssetBid)
+//}
 
 // getAssetPrice gets the bid or ask price from caller's implicit private data collection
 func getAssetPrice(ctx contractapi.TransactionContextInterface, assetID string, priceType string) (string, error) {
@@ -97,47 +97,47 @@ func getAssetPrice(ctx contractapi.TransactionContextInterface, assetID string, 
 	return string(price), nil
 }
 
-// // QueryAssetSaleAgreements returns all of an organization's proposed sales
-// func (s *SmartContract) QueryAssetSaleAgreements(ctx contractapi.TransactionContextInterface) ([]Agreement, error) {
-// 	return queryAgreementsByType(ctx, typeAssetForSale)
-// }
+// QueryAssetSaleAgreements returns all of an organization's proposed sales
+//func (s *SmartContract) QueryAssetSaleAgreements(ctx contractapi.TransactionContextInterface) ([]Agreement, error) {
+//	return queryAgreementsByType(ctx, typeAssetForSale)
+//}
 
-// // QueryAssetBuyAgreements returns all of an organization's proposed bids
-// func (s *SmartContract) QueryAssetBuyAgreements(ctx contractapi.TransactionContextInterface) ([]Agreement, error) {
-// 	return queryAgreementsByType(ctx, typeAssetBid)
-// }
+// QueryAssetBuyAgreements returns all of an organization's proposed bids
+//func (s *SmartContract) QueryAssetBuyAgreements(ctx contractapi.TransactionContextInterface) ([]Agreement, error) {
+//	return queryAgreementsByType(ctx, typeAssetBid)
+//}
 
-// func queryAgreementsByType(ctx contractapi.TransactionContextInterface, agreeType string) ([]Agreement, error) {
-// 	collection, err := getClientImplicitCollectionName(ctx)
-// 	if err != nil {
-// 		return nil, err
-// 	}
+func queryAgreementsByType(ctx contractapi.TransactionContextInterface, agreeType string) ([]Agreement, error) {
+	collection, err := getClientImplicitCollectionName(ctx)
+	if err != nil {
+		return nil, err
+	}
 
-// 	// Query for any object type starting with `agreeType`
-// 	agreementsIterator, err := ctx.GetStub().GetPrivateDataByPartialCompositeKey(collection, agreeType, []string{})
-// 	if err != nil {
-// 		return nil, fmt.Errorf("failed to read from private data collection: %v", err)
-// 	}
-// 	defer agreementsIterator.Close()
+	// Query for any object type starting with `agreeType`
+	agreementsIterator, err := ctx.GetStub().GetPrivateDataByPartialCompositeKey(collection, agreeType, []string{})
+	if err != nil {
+		return nil, fmt.Errorf("failed to read from private data collection: %v", err)
+	}
+	defer agreementsIterator.Close()
 
-// 	var agreements []Agreement
-// 	for agreementsIterator.HasNext() {
-// 		resp, err := agreementsIterator.Next()
-// 		if err != nil {
-// 			return nil, err
-// 		}
+	var agreements []Agreement
+	for agreementsIterator.HasNext() {
+		resp, err := agreementsIterator.Next()
+		if err != nil {
+			return nil, err
+		}
 
-// 		var agreement Agreement
-// 		err = json.Unmarshal(resp.Value, &agreement)
-// 		if err != nil {
-// 			return nil, err
-// 		}
+		var agreement Agreement
+		err = json.Unmarshal(resp.Value, &agreement)
+		if err != nil {
+			return nil, err
+		}
 
-// 		agreements = append(agreements, agreement)
-// 	}
+		agreements = append(agreements, agreement)
+	}
 
-// 	return agreements, nil
-// }
+	return agreements, nil
+}
 
 // QueryAssetHistory returns the chain of custody for a asset since issuance
 func (s *SmartContract) QueryAssetHistory(ctx contractapi.TransactionContextInterface, assetID string) ([]QueryResult, error) {
